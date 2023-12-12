@@ -31,7 +31,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    publishWebProjects: true
+    publishWebProjects: false
     arguments: '--output $(build.artifactstagingdirectory) -r linux-x64'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: DiscordAppDrop'
