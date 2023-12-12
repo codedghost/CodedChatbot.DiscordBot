@@ -32,8 +32,9 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
-    arguments: '--output $(build.artifactstagingdirectory) -r linux-x64'
+    arguments: '--output $(build.artifactstagingdirectory)/DiscordBot -r linux-x64 '
     zipAfterPublish: true
+    
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: DiscordAppDrop'
   inputs:
