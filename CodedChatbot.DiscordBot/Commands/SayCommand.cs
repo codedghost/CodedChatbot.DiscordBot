@@ -14,8 +14,6 @@ public class SayCommand : ModuleBase<SocketCommandContext>
         if (!string.IsNullOrWhiteSpace(InputHelper.SanitiseInput(Format.StripMarkDown(echo))))
         {
             await ReplyAsync(echo);
-
-            React
         }
     }
 }
