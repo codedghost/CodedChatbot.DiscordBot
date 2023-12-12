@@ -50,11 +50,16 @@ public static class Package
 
         var loggingService = serviceProvider.GetService<ILoggingService>();
 
+        if (loggingService == null)
+        {
+            return services;
+        }
+
         discordSocketClient.Log += loggingService.Log;
 
         var token = secretService.GetSecret<string>("DiscordToken");
 
-        discordSocketClient.LoginAsync(TokenType.Bot, token);
+        await discordSocketClient.LoginAsync(TokenType.Bot, token);
 
         await discordSocketClient.StartAsync();
 

@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using CodedChatbot.DiscordBot.Interfaces.Core;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
@@ -39,6 +40,11 @@ public class CommandHandlerService : ICommandHandlerService
         }
 
         int argPos = 0;
+
+        if (message.Content.Contains("silly sausage"))
+        {
+            await message.ReplyAsync("THOU SHALT NOT SPEAK THE FORBIDDEN WORDS");
+        }
 
         if (!message.HasCharPrefix('!', ref argPos) ||
             message.Author.IsBot)
