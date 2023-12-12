@@ -1,0 +1,42 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pr: none
+
+name: 1.0.$(BuildID)
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'runtime'
+    version: '7.x'
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '6.5.0'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    vstsFeed: '087f7b3b-2160-4d35-8fb9-36edb3d5651b'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '--output $(build.artifactstagingdirectory)/DiscordBot -r linux-x64 '
+    zipAfterPublish: true
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: DiscordAppDrop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: DiscordAppDrop
