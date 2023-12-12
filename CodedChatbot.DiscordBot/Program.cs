@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CodedChatbot.DiscordBot.Interfaces.Core;
 using CodedChatbot.DiscordBot.Interfaces.Services;
 using CoreCodedChatbot.Logging;
@@ -39,6 +40,6 @@ public class Program
 
         var host = builder.Build();
 
-        await host.RunAsync();
+        Console.ReadLine();
     }
 }
