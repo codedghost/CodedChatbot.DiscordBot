@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CodedChatbot.DiscordBot/bin/Debug/net7.0
+/CodedChatbot.DiscordBot/obj
+/CodedChatbot.DiscordBot/appsettings.Development.json
+/CodedChatbot.DiscordBot/appsettings.Local.json
