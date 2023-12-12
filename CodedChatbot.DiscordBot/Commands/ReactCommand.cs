@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.ComTypes;
 using CodedChatbot.DiscordBot.Helpers;
 using Discord.Commands;
 using System.Threading.Tasks;
+using Discord;
 using Discord.WebSocket;
 
 namespace CodedChatbot.DiscordBot.Commands;
@@ -19,18 +20,29 @@ public class ReactCommand : ModuleBase<SocketCommandContext>
 
     [Command("react")]
     [Summary("Reacts to a message...")]
-    public async Task ReactAsync(SocketUserMessage message, string emoteName)
+    public async Task ReactAsync(string emoteName)
     {
-        var emote = _client.Guilds
+        IEmote emote = _client.Guilds
             .SelectMany(x => x.Emotes)
             .FirstOrDefault(x => x.Name.IndexOf(
                 emoteName, StringComparison.InvariantCultureIgnoreCase) != -1);
 
         if (emote == null)
         {
-            return;
+            if (Emoji.TryParse($":{emoteName}:", out var emoji))
+            {
+                emote = emoji;
+            }
+            else if (Emote.TryParse($":{emoteName}:", out var parseEmote))
+            {
+                emote = parseEmote;
+            }
+            else
+            {
+                return;
+            }
         }
 
-        await message.AddReactionAsync(emote);
+        await Context.Message.AddReactionAsync(emote);
     }
 }
